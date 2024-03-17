@@ -74,25 +74,22 @@ function Navbar() {
 						<div className='flex justify-between gap-2 items-center cursor-pointer hover:text-blue-800 font-semibold text-3xl'>
 							{isLoggedIn ? (
 								<>
-								<span>
+									<span>
 										<RiLogoutBoxFill />
 									</span>
-									<Link to='/login' onClick={handleLogout}>
+									<Link to='/' onClick={handleLogout}>
 										<span>Logout</span>
 									</Link>
 								</>
 							) : (
 								<>
-                <span>
+									<span>
 										<RiLoginBoxFill />
 									</span>
-									<Link to='/signup'>
-										<span>SignUp/</span>
-									</Link>
+
 									<Link to='/login'>
 										<span>Login</span>
 									</Link>
-									
 								</>
 							)}
 						</div>

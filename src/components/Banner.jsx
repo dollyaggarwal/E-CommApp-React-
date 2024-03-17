@@ -2,7 +2,7 @@ import React from 'react';
 import banner from '../assets/img/b1.jpg';
 import ItemsCard from './itemsCard';
 function Banner() {
-  console.log("inside banner")
+ 
 	return (
 		<>
 		<div className="relative top-1 font-[sans-serif] before:absolute before:w-full before:h-full before:inset-0 before:bg-black before:opacity-50 before:z-10">

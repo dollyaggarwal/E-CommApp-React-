@@ -1,6 +1,6 @@
 import React from 'react';
 import { Items } from '../data/itemsData';
-import { itemValue } from '../contextApi/itemContext';
+import { useValue } from '../contextApi/context';
 
 function ItemsCard() {
 	const truncateDescription = (description) => {
@@ -11,11 +11,12 @@ function ItemsCard() {
         return description;
     };
 	
-	const {handleAdd}= itemValue();
+
+	const {handleAdd} = useValue();
 	
 	return (
 		<>
-	  <div className='flex flex-row flex-wrap items-center justify-evenly space-x-6 space-y-8'>
+	  <div className='flex flex-row flex-wrap items-center justify-evenly space-x-6 space-y-10 mb-14'>
 		{Items.map((item)=>(
 			<div key={item.id} className='relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96'>
 					<div className='relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-96'>
@@ -31,7 +32,7 @@ function ItemsCard() {
 								{item.title}
 							</p>
 							<p className='block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900'>
-								{item.price}
+							&#8377;{item.price}
 							</p>
 						</div>
 						<p className='block font-sans text-sm antialiased font-normal leading-normal text-gray-700 opacity-75'>

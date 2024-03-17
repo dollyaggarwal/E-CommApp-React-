@@ -4,7 +4,7 @@ import { useValue } from "../contextApi/context";
  const ProtectedRoute = ({children})=>{
     const {isLoggedIn} = useValue();
     if(!isLoggedIn)
-    return <Navigate to="/login" replace={true}/>;
+    return <Navigate to="/" replace={true}/>;
     return children;
   }
   export default ProtectedRoute;
