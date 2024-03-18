@@ -1,69 +1,230 @@
-import { createContext,useContext,useEffect,useState } from "react";
-import { auth, db } from "../firebase/firebaseConfig";
-
-import { onAuthStateChanged } from "firebase/auth";
+import { createContext, useContext, useEffect, useState } from 'react';
+import { auth, db } from '../firebase/firebaseConfig';
+import {
+	addDoc,
+	collection,
+	deleteDoc,
+	doc,
+	getDoc,
+	getDocs,
+	query,
+	setDoc,
+	updateDoc,
+	where,
+} from 'firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
+import { useValue } from './context';
+import toast from 'react-hot-toast';
 
 const itemContext = createContext();
 
-function ItemContextProvider({children}){
-    const [total, setTotal] = useState(0);
-    const [item, setItem] = useState(0);
-    const [showCart, setShowCart] = useState(false);
-    const [cart,setCart] = useState([]);
+function ItemContextProvider({ children }) {
+	const { isLoggedIn } = useValue();
+	const [total, setTotal] = useState(0);
+	const [cart, setCart] = useState([]);
+	const [orders, setOrders] = useState([]);
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                setIsLoggedIn(true);
-                const userId = user.uid;
-                const cartItems = await fetchCartItems(userId);
-                setCart(cartItems);
-            } else {
-                setIsLoggedIn(false);
-                setCart([]);
-            }
-        });
-        return () => unsubscribe(); // Clean up the observer on component unmount
-    }, []);
+	useEffect(() => {
+		const unsubscribe = onAuthStateChanged(auth, async (user) => {
+			if (user) {
+				const userId = user.uid;
+				try {
+					const cartItems = await fetchCartItems(userId);
+				} catch (error) {
+					console.error('Error fetching cart items:', error);
+				}
+			} else {
+				setCart([]);
+			}
+		});
+		return () => unsubscribe();
+	}, []);
 
-    const fetchCartItems = async (userId) => {
-        const cartItemsRef = collection(firestore, 'carts');
-        const q = query(cartItemsRef, where("userId", "==", userId));
-        const querySnapshot = await getDocs(q);
-        const cartItems = querySnapshot.docs.map(doc => doc.data());
-        return cartItems;
-    }
-  
-    const handleAdd = async (product,isLoggedIn)=>{
-        if(isLoggedIn){
-        const userId = auth.currentUser.uid;
-        const index = cart.findIndex((item)=> item.id === product.id);
-        if(index === -1){
-          
-            const docRef = await addDoc(collection(db,"cart"),{
-                userId,product
-            }) 
-            setCart([...cart,{...product, qty:1}])
-            setTotal(total + product.price);
-          }
-          else{
-            cart[index].qty++;
-            setCart(cart);
-            setTotal(total+cart[index].price);
-          }
-          setItem(item+1);
-        }
-    }
-    return (
-        <itemContext.Provider value={{handleAdd,total,cart}}>
-            {children}
-        </itemContext.Provider>
-    );
+	useEffect(() => {
+		const unsubscribe = onAuthStateChanged(auth, async (user) => {
+			if (user) {
+				const userId = user.uid;
+				try {
+					const orders = await fetchOrders(userId);
+				} catch (error) {
+					console.error('Error fetching orders:', error);
+				}
+			} else {
+				setOrders([]);
+			}
+		});
+		return () => unsubscribe();
+	}, []);
+
+	const fetchCartItems = async (userId) => {
+		try{
+			const cartRef = await getDoc(doc(db, 'cart', userId));
+		if (cartRef.exists()) {
+			setCart(cartRef.data().products);
+			return cartRef.data().products;
+		} else {
+			return [];
+		}
+		}catch (error) {
+			console.error('Error fetching cart: ', error);
+		}
+	};
+
+	const handleAdd = async (product) => {
+		if (isLoggedIn) {
+			const userId = auth.currentUser.uid;
+
+			const item = cart.find((item) => item.id === product.id);
+
+			if (!item) {
+				try {
+					const updatedCart = [...cart, { ...product, qty: 1 }];
+					await setDoc(doc(db, 'cart', userId), {
+						userId,
+						products: updatedCart,
+					});
+
+					fetchCartItems(userId);
+					toast.success('Item added to cart successfully');
+				} catch (error) {
+					console.error('Error adding document: ', error);
+				}
+			} else {
+				try {
+					const updatedCart = cart.map((item) =>
+						item.id === product.id ? { ...item, qty: item.qty + 1 } : item
+					);
+
+					await updateDoc(doc(db, 'cart', userId), {
+						products: updatedCart,
+					});
+					fetchCartItems(userId);
+					toast.success('Item added to cart successfully');
+				} catch (error) {
+					console.error('Error updating document: ', error);
+				}
+			}
+		} else {
+			alert('Please log in to add items to your cart.');
+		}
+	};
+
+	const removeFromCart = async (itemId) => {
+		if (isLoggedIn) {
+			try {
+				const userId = auth.currentUser.uid;
+				const cartItem = cart.find((item) => item.id === itemId);
+				if (cartItem) {
+					const updatedCart = cart.filter((item) => item.id !== itemId);
+					await updateDoc(doc(db, 'cart', userId), {
+						products: updatedCart,
+					});
+					fetchCartItems(userId);
+				}
+			} catch (error) {
+				console.error('Error removing document: ', error);
+			}
+		} else {
+			alert('Please log in to remove items from your cart.');
+		}
+	};
+
+	const increaseQuantity = async (itemId) => {
+		try {
+			const userId = auth.currentUser.uid;
+			const updatedCart = cart.map((item) =>
+				item.id === itemId ? { ...item, qty: item.qty + 1 } : item
+			);
+
+			await updateDoc(doc(db, 'cart', userId), {
+				products: updatedCart,
+			});
+			fetchCartItems(userId);
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+	const decreaseQuantity = async (itemId) => {
+		try {
+			const userId = auth.currentUser.uid;
+			const updatedCart = cart.map((item) => {
+				if (item.id === itemId) {
+					return item.qty > 1
+						? { ...item, qty: item.qty - 1 }
+						: removeFromCart(itemId);
+				} else {
+					return item;
+				}
+			});
+			await updateDoc(doc(db, 'cart', userId), {
+				products: updatedCart,
+			});
+			fetchCartItems(userId);
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+
+	const checkoutToOrders = async () => {
+		try{
+			if (isLoggedIn) {
+				const userId = auth.currentUser.uid;
+	
+				const orderRef = await getDoc(doc(db, 'cart', userId));
+				console.log(orderRef);
+				if (orderRef.exists()) {
+					setOrders(orderRef.data().products);
+					await setDoc(doc(db, 'orders', userId), {
+						userId,
+						products: orderRef,
+					});
+					fetchOrders();
+					toast.success('Order placed successfully');
+				} else {
+					return [];
+				}
+			}
+		}catch (error) {
+			console.error('Error placing orders: ', error);
+		}
+	};
+	const fetchOrders = async (userId) => {
+		try{
+			const orderRef = await getDoc(doc(db, 'orders', userId));
+		if (orderRef.exists()) {
+			setOrders(orderRef.data().products);
+			return orderRef.data().products;
+		} else {
+			return [];
+		}
+		}catch (error) {
+			console.error('Error fetching orders: ', error);
+		}
+	};
+
+	return (
+		<itemContext.Provider
+			value={{
+				handleAdd,
+				removeFromCart,
+				total,
+				cart,
+				orders,
+                checkoutToOrders,
+                increaseQuantity,
+                decreaseQuantity,
+				increaseQuantity,
+				decreaseQuantity,
+				checkoutToOrders,
+			}}>
+			{children}
+		</itemContext.Provider>
+	);
 }
-function itemValue(){
-    const value = useContext(itemContext);
-    return value;
+function itemValue() {
+	const value = useContext(itemContext);
+	return value;
 }
 
-export {itemValue};
+export { itemValue };
 export default ItemContextProvider;

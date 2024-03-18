@@ -1,6 +1,8 @@
 import React from 'react';
 import { Items } from '../data/itemsData';
 import { useValue } from '../contextApi/context';
+import { itemValue } from '../contextApi/itemContext';
+
 
 function ItemsCard() {
 	const truncateDescription = (description) => {
@@ -11,8 +13,7 @@ function ItemsCard() {
         return description;
     };
 	
-
-	const {handleAdd} = useValue();
+	const {handleAdd} = itemValue();
 	
 	return (
 		<>

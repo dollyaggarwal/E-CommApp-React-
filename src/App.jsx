@@ -16,6 +16,7 @@ import Orders from './components/Orders';
 import CustomContextProvider from './contextApi/context';
 import RouteErrorPage from './errorHandles/RouteErrorPage';
 import ProtectedRoute from './components/ProtectedRoutes';
+import ItemContextProvider from './contextApi/itemContext';
 
 function App() {
 	const router = createBrowserRouter([
@@ -27,14 +28,16 @@ function App() {
 				{
 					index: true,
 					element: (
-								<Banner />
+								<ItemContextProvider><Banner /></ItemContextProvider>
 					),
 				},
 				{
 					path: 'orders',
 					element: (
 						<ProtectedRoute>
-							<Orders />{' '}
+						<ItemContextProvider>
+						<Orders />
+						</ItemContextProvider>
 						</ProtectedRoute>
 					),
 				},
@@ -43,7 +46,9 @@ function App() {
 					element: (
 					
 							<ProtectedRoute>
-								<CartItems />
+							<ItemContextProvider>
+							<CartItems />
+							</ItemContextProvider>
 							</ProtectedRoute>
 					
 					),
@@ -56,7 +61,9 @@ function App() {
 
 	return (
 		<CustomContextProvider>
-			<RouterProvider router={router} />
+		<ItemContextProvider>
+		<RouterProvider router={router} />
+		</ItemContextProvider>
 		</CustomContextProvider>
 	);
 }
