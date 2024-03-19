@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import logo from '../assets/img/logo1.png';
 import { FaHome } from 'react-icons/fa';
@@ -6,11 +6,14 @@ import { FaShoppingBag } from 'react-icons/fa';
 import { FaShoppingCart } from 'react-icons/fa';
 import { RiLoginBoxFill } from 'react-icons/ri';
 import { RiLogoutBoxFill } from 'react-icons/ri';
-import { signOut } from 'firebase/auth';
 import { useValue } from '../contextApi/context';
+import { itemValue } from '../contextApi/itemContext';
+
 
 function Navbar() {
 	const { handleLogout, isLoggedIn } = useValue();
+	const {searchItems} = itemValue();
+
 	return (
 		<>
 			<nav>
@@ -20,13 +23,14 @@ function Navbar() {
 					</div>
 
 					<div className='relative w-1/4 mx-auto text-gray-800 lg:block hidden'>
-						<input
+						<input onChange={(e)=>searchItems(e.target.value)}
 							className='border-2 border-gray-400 bg-white w-full h-11 pl-2 pr-8 rounded-lg text-sm focus:outline-none'
 							type='search'
 							name='search'
 							placeholder='Search for Brands,Products and more'
 						/>
-						<button type='submit' className='absolute right-0 top-0 mt-3 mr-2'>
+						<button type='submit'
+						className='absolute right-0 top-0 mt-3 mr-2'>
 							<svg
 								className='text-gray-900 h-5 w-5 fill-current'
 								xmlns='http://www.w3.org/2000/svg'

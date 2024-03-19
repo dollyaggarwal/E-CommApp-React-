@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { auth, db } from '../firebase/firebaseConfig';
+import { Items } from '../data/itemsData';
 import {
 	addDoc,
 	collection,
@@ -23,6 +24,18 @@ function ItemContextProvider({ children }) {
 	const [total, setTotal] = useState(0);
 	const [cart, setCart] = useState([]);
 	const [orders, setOrders] = useState([]);
+	const [searchProducts,setSearchProducts] = useState([]);
+
+	const searchItems = (value) => {
+	
+		const searchedItems = Items.filter((item) => {		
+			return item.title.toLowerCase().includes(value.toLowerCase());
+		});
+		
+		setSearchProducts(searchedItems);
+		console.log(searchProducts)
+	}
+	
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -83,7 +96,6 @@ function ItemContextProvider({ children }) {
 						userId,
 						products: updatedCart,
 					});
-
 					fetchCartItems(userId);
 					toast.success('Item added to cart successfully');
 				} catch (error) {
@@ -169,17 +181,25 @@ function ItemContextProvider({ children }) {
 		try{
 			if (isLoggedIn) {
 				const userId = auth.currentUser.uid;
-	
 				const orderRef = await getDoc(doc(db, 'cart', userId));
-				console.log(orderRef);
+				const myCreatedDate = new Date().toLocaleDateString(); 
+				const orderedItems={date:myCreatedDate, order: [...cart]};
+				const updatedOrders = [...orders,orderedItems];
+				console.log(updatedOrders)
+				console.log(orders)
 				if (orderRef.exists()) {
-					setOrders(orderRef.data().products);
+					
 					await setDoc(doc(db, 'orders', userId), {
 						userId,
-						products: orderRef,
+						orders: updatedOrders,
 					});
-					fetchOrders();
+					await updateDoc(doc(db, 'cart', userId), {
+						products: [],
+					});
+					fetchCartItems(userId);
+					fetchOrders(userId);
 					toast.success('Order placed successfully');
+					
 				} else {
 					return [];
 				}
@@ -192,8 +212,8 @@ function ItemContextProvider({ children }) {
 		try{
 			const orderRef = await getDoc(doc(db, 'orders', userId));
 		if (orderRef.exists()) {
-			setOrders(orderRef.data().products);
-			return orderRef.data().products;
+			setOrders(orderRef.data().orders);
+			return orderRef.data().orders;
 		} else {
 			return [];
 		}
@@ -216,6 +236,8 @@ function ItemContextProvider({ children }) {
 				increaseQuantity,
 				decreaseQuantity,
 				checkoutToOrders,
+				searchItems,
+				searchProducts,
 			}}>
 			{children}
 		</itemContext.Provider>

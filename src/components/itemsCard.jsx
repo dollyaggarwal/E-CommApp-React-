@@ -13,7 +13,7 @@ function ItemsCard() {
         return description;
     };
 	
-	const {handleAdd} = itemValue();
+	const {handleAdd,searchProducts} = itemValue();
 	
 	return (
 		<>

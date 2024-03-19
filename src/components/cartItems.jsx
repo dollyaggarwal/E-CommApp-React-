@@ -6,8 +6,14 @@ import { Button } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
 
 function CartItems() {
-	const { total, cart, removeFromCart, increaseQuantity, decreaseQuantity,checkoutToOrders } =
-		itemValue();
+	const {
+		total,
+		cart,
+		removeFromCart,
+		increaseQuantity,
+		decreaseQuantity,
+		checkoutToOrders,
+	} = itemValue();
 	const cartTotal = cart
 		.reduce((curr, item) => curr + item.price * item.qty, 0)
 		.toLocaleString('en-IN');
@@ -130,8 +136,9 @@ function CartItems() {
 										</span>
 									</div>
 									<Link to='/orders'>
-										<button className='bg-blue-500 text-white font-bold text-lg py-2 px-4 rounded-lg mt-4 w-full'
-                     onClick={checkoutToOrders}>
+										<button
+											className='bg-blue-500 text-white font-bold text-lg py-2 px-4 rounded-lg mt-4 w-full'
+											onClick={checkoutToOrders}>
 											Checkout
 										</button>
 									</Link>
