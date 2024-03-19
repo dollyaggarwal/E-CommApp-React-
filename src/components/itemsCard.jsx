@@ -6,15 +6,15 @@ function ItemsContainer() {
 
 	const truncateDescription = (description) => {
 		const words = description.split(' ');
-		if (words.length > 13) {
-			return words.slice(0, 10).join(' ') + '...';
+		if (words.length > 10) {
+			return words.slice(0, 8).join(' ') + '...';
 		}
 		return description;
 	};
 
 	return (
 		<>
-			<div className='flex flex-row flex-wrap items-center justify-evenly space-x-6 space-y-10 mb-14'>
+			<div className='flex flex-row flex-wrap items-center justify-between space-x-6 space-y-6 mb-14'>
 				{searchProducts.length === 0 ? (
 					<div className='w-full h-full flex items-center pt-36 justify-center'>
 						<FcCancel className='size-14' />
@@ -26,12 +26,12 @@ function ItemsContainer() {
 					searchProducts.map((item) => (
 						<div
 							key={item.id}
-							className='relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96'>
-							<div className='relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-96'>
+							className='relative flex flex-col justify-start text-gray-700 bg-white shadow-md bg-clip-border rounded-xl  h-96 w-72'>
+							<div className='relative w-[130px] h-[200px] md:w-[230px] md:h-[180px] mx-4 flex justify-center items-center overflow-hidden text-gray-70 bg-clip-border rounded-xl '>
 								<img
 									src={item.img}
 									alt='card-image'
-									className='object-contain max-w-full max-h-full'
+									className='max-w-full max-h-full md:max-w-full md:max-h-full'
 								/>
 							</div>
 							<div className='p-6'>
@@ -43,9 +43,14 @@ function ItemsContainer() {
 										&#8377;{item.price}
 									</p>
 								</div>
-								<p className='block font-sans text-sm antialiased font-normal leading-normal text-gray-700 opacity-75'>
-									{truncateDescription(item.description)}
-								</p>
+								<div className='flex items-center justify-between mb-2'>
+									<p className='block uppercase font-sans text-md antialiased font-normal leading-normal text-gray-700 opacity-75'>
+										{item.category}
+									</p>
+									<p className='block uppercase font-sans text-md antialiased font-semibold leading-normal text-green-700 opacity-80'>
+										-{item.discount}&#37;
+									</p>
+								</div>
 							</div>
 							<div className='p-6 pt-0'>
 								<button

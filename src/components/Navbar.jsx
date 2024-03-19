@@ -22,10 +22,10 @@ function Navbar() {
 					<div className='relative w-1/4 mx-auto text-gray-900 font-semibold lg:block hidden'>
 						<input
 							onChange={(e) => searchItems(e.target.value)}
-							className='border-2 border-gray-400 bg-white w-full h-14 pl-2 pr-8 rounded-lg text-lg focus:outline-none'
+							className='border-2 border-gray-400 bg-white w-full h-12 pl-2 pr-6 rounded-lg text-sm focus:outline-none'
 							type='search'
 							name='search'
-							placeholder='Search for Brands,Products and more...'
+							placeholder='Search for Brands,Products and more'
 						/>
 					</div>
 
