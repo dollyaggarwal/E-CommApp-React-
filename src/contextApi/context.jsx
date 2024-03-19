@@ -5,7 +5,8 @@ import {
 	signOut,
 } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState } from 'react';
-import { auth,db } from '../firebase/firebaseConfig';
+import { auth, db } from '../firebase/firebaseConfig';
+import toast from 'react-hot-toast';
 
 const userContext = createContext();
 function useValue() {
@@ -23,7 +24,6 @@ function CustomContextProvider({ children }) {
 		const unsubscribe = onAuthStateChanged(auth, async (user) => {
 			if (user) {
 				setIsLoggedIn(true);
-				// No need to fetch cart items here
 			} else {
 				setIsLoggedIn(false);
 			}
@@ -44,11 +44,11 @@ function CustomContextProvider({ children }) {
 				email,
 				password
 			);
-
 			const user = userCredentails.user;
 			localStorage.setItem('token', user.accessToken);
 			localStorage.setItem('user', JSON.stringify(user));
 			setIsLoggedIn(true);
+			toast.success(user.email + ' registered successfully');
 		} catch (err) {
 			alert(err.message);
 		}
@@ -61,11 +61,11 @@ function CustomContextProvider({ children }) {
 				email,
 				password
 			);
-
 			const user = userCredentails.user;
 			localStorage.setItem('token', user.accessToken);
 			localStorage.setItem('user', JSON.stringify(user));
 			setIsLoggedIn(true);
+			toast.success(user.email + ' logged in successfully');
 		} catch (err) {
 			alert(err.message);
 		}
@@ -75,6 +75,7 @@ function CustomContextProvider({ children }) {
 		localStorage.removeItem('token');
 		localStorage.removeItem('user');
 		setIsLoggedIn(false);
+		toast.success('You have logged out successfully');
 	};
 
 	return (
@@ -90,7 +91,6 @@ function CustomContextProvider({ children }) {
 				handleSubmitForLogin,
 				handleLogout,
 				isLoggedIn,
-				
 			}}>
 			{children}
 		</userContext.Provider>

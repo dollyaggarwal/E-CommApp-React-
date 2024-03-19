@@ -24,18 +24,14 @@ function ItemContextProvider({ children }) {
 	const [total, setTotal] = useState(0);
 	const [cart, setCart] = useState([]);
 	const [orders, setOrders] = useState([]);
-	const [searchProducts,setSearchProducts] = useState([]);
+	const [searchProducts, setSearchProducts] = useState(Items);
 
 	const searchItems = (value) => {
-	
-		const searchedItems = Items.filter((item) => {		
+		const filteredItems = Items.filter((item) => {
 			return item.title.toLowerCase().includes(value.toLowerCase());
 		});
-		
-		setSearchProducts(searchedItems);
-		console.log(searchProducts)
-	}
-	
+		setSearchProducts(filteredItems);
+	};
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -70,15 +66,15 @@ function ItemContextProvider({ children }) {
 	}, []);
 
 	const fetchCartItems = async (userId) => {
-		try{
+		try {
 			const cartRef = await getDoc(doc(db, 'cart', userId));
-		if (cartRef.exists()) {
-			setCart(cartRef.data().products);
-			return cartRef.data().products;
-		} else {
-			return [];
-		}
-		}catch (error) {
+			if (cartRef.exists()) {
+				setCart(cartRef.data().products);
+				return cartRef.data().products;
+			} else {
+				return [];
+			}
+		} catch (error) {
 			console.error('Error fetching cart: ', error);
 		}
 	};
@@ -111,13 +107,18 @@ function ItemContextProvider({ children }) {
 						products: updatedCart,
 					});
 					fetchCartItems(userId);
-					toast.success('Item added to cart successfully');
+					const itemQuantity = updatedCart.find(
+						(item) => item.id === product.id
+					);
+					toast.success(
+						`${itemQuantity.qty}X items added to cart successfully`
+					);
 				} catch (error) {
 					console.error('Error updating document: ', error);
 				}
 			}
 		} else {
-			alert('Please log in to add items to your cart.');
+			toast.error('Please log in to add items to your cart.');
 		}
 	};
 
@@ -132,12 +133,14 @@ function ItemContextProvider({ children }) {
 						products: updatedCart,
 					});
 					fetchCartItems(userId);
+
+					toast.error(`${cartItem.qty}X item removed from cart successfully`);
 				}
 			} catch (error) {
 				console.error('Error removing document: ', error);
 			}
 		} else {
-			alert('Please log in to remove items from your cart.');
+			toast.error('Please log in to remove items from your cart.');
 		}
 	};
 
@@ -152,6 +155,7 @@ function ItemContextProvider({ children }) {
 				products: updatedCart,
 			});
 			fetchCartItems(userId);
+			toast.success('1X item quantity increases');
 		} catch (error) {
 			console.error(error.message);
 		}
@@ -172,72 +176,77 @@ function ItemContextProvider({ children }) {
 				products: updatedCart,
 			});
 			fetchCartItems(userId);
+			toast.success('1X item quantity decreases');
 		} catch (error) {
 			console.error(error.message);
 		}
 	};
 
 	const checkoutToOrders = async () => {
-		try{
+		try {
 			if (isLoggedIn) {
 				const userId = auth.currentUser.uid;
 				const orderRef = await getDoc(doc(db, 'cart', userId));
-				const myCreatedDate = new Date().toLocaleDateString(); 
-				const orderedItems={date:myCreatedDate, order: [...cart]};
-				const updatedOrders = [...orders,orderedItems];
-				console.log(updatedOrders)
-				console.log(orders)
+				const myCreatedDate = new Date().toLocaleDateString();
+				const orderedItems = { date: myCreatedDate, order: [...cart] };
+				const updatedOrders = [...orders, orderedItems];
+				console.log(updatedOrders);
+				console.log(orders);
 				if (orderRef.exists()) {
-					
 					await setDoc(doc(db, 'orders', userId), {
 						userId,
 						orders: updatedOrders,
 					});
+					const orderedQty = cart.reduce((acc, item) => item.qty + acc, 0);
+
 					await updateDoc(doc(db, 'cart', userId), {
 						products: [],
 					});
 					fetchCartItems(userId);
 					fetchOrders(userId);
-					toast.success('Order placed successfully');
-					
+					toast.success(`${orderedQty}X  Order placed for  successfully`);
 				} else {
+					toast.error('No order found');
 					return [];
 				}
+			} else {
+				toast.error('Please log in to place an order');
 			}
-		}catch (error) {
-			console.error('Error placing orders: ', error);
+		} catch (error) {
+			toast.error('Error placing orders: ', error);
 		}
 	};
 	const fetchOrders = async (userId) => {
-		try{
+		try {
 			const orderRef = await getDoc(doc(db, 'orders', userId));
-		if (orderRef.exists()) {
-			setOrders(orderRef.data().orders);
-			return orderRef.data().orders;
-		} else {
-			return [];
-		}
-		}catch (error) {
-			console.error('Error fetching orders: ', error);
+			if (orderRef.exists()) {
+				setOrders(orderRef.data().orders);
+				return orderRef.data().orders;
+			} else {
+				return [];
+			}
+		} catch (error) {
+			toast.error('Error fetching orders: ', error);
 		}
 	};
 
 	return (
 		<itemContext.Provider
 			value={{
-				handleAdd,
-				removeFromCart,
 				total,
 				cart,
 				orders,
-                checkoutToOrders,
-                increaseQuantity,
-                decreaseQuantity,
+				searchProducts,
+				handleAdd,
+				removeFromCart,
+				checkoutToOrders,
+				increaseQuantity,
+				decreaseQuantity,
 				increaseQuantity,
 				decreaseQuantity,
 				checkoutToOrders,
 				searchItems,
-				searchProducts,
+				setSearchProducts,
 			}}>
 			{children}
 		</itemContext.Provider>

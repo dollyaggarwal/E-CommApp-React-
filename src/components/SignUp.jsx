@@ -3,9 +3,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useValue } from '../contextApi/context';
 
 function SignUp() {
-	const {name,email,setName,setEmail,password,setPassword,handleSubmitForRegister,isLoggedIn} = useValue();
+	const {
+		name,
+		email,
+		setName,
+		setEmail,
+		password,
+		setPassword,
+		handleSubmitForRegister,
+		isLoggedIn,
+	} = useValue();
 	const navigate = useNavigate();
-	if(isLoggedIn){
+	if (isLoggedIn) {
 		navigate('/');
 	}
 
@@ -21,8 +30,11 @@ function SignUp() {
 							<h1 className='text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white'>
 								Create an account
 							</h1>
-							<form onSubmit={handleSubmitForRegister} className='space-y-4 md:space-y-6' action='#'>
-							<div>
+							<form
+								onSubmit={handleSubmitForRegister}
+								className='space-y-4 md:space-y-6'
+								action='#'>
+								<div>
 									<label
 										htmlFor='name'
 										className='block mb-2 text-md font-medium text-gray-900 dark:text-white'>
@@ -36,7 +48,7 @@ function SignUp() {
 										className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
 										placeholder='your name'
 										required
-										onChange={(e)=> setName(e.target.value)}
+										onChange={(e) => setName(e.target.value)}
 									/>
 								</div>
 								<div>
@@ -53,7 +65,7 @@ function SignUp() {
 										className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
 										placeholder='name@company.com'
 										required
-										onChange={(e)=> setEmail(e.target.value)}
+										onChange={(e) => setEmail(e.target.value)}
 									/>
 								</div>
 								<div>
@@ -70,7 +82,7 @@ function SignUp() {
 										placeholder='••••••••'
 										className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
 										required
-										onChange={(e)=> setPassword(e.target.value)}
+										onChange={(e) => setPassword(e.target.value)}
 									/>
 								</div>
 								<div className='flex items-start'>
@@ -104,7 +116,7 @@ function SignUp() {
 								<p className='text-md font-light text-gray-200 dark:text-gray-200'>
 									Already have an account ?{' '}
 									<span className='text-lg font-medium text-blue-600 hover:underline dark:text-blue-500'>
-										<Link to= '/login'>Login Here </Link>
+										<Link to='/login'>Login Here </Link>
 									</span>
 								</p>
 							</form>

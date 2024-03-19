@@ -17,6 +17,7 @@ import CustomContextProvider from './contextApi/context';
 import RouteErrorPage from './errorHandles/RouteErrorPage';
 import ProtectedRoute from './components/ProtectedRoutes';
 import ItemContextProvider from './contextApi/itemContext';
+import ItemsContainer from './components/itemsCard';
 
 function App() {
 	const router = createBrowserRouter([
@@ -27,30 +28,22 @@ function App() {
 			children: [
 				{
 					index: true,
-					element: (
-								<ItemContextProvider><Banner /></ItemContextProvider>
-					),
+					element: <Banner />,
 				},
 				{
 					path: 'orders',
 					element: (
 						<ProtectedRoute>
-						<ItemContextProvider>
-						<Orders />
-						</ItemContextProvider>
+							<Orders />
 						</ProtectedRoute>
 					),
 				},
 				{
 					path: 'cart',
 					element: (
-					
-							<ProtectedRoute>
-							<ItemContextProvider>
+						<ProtectedRoute>
 							<CartItems />
-							</ItemContextProvider>
-							</ProtectedRoute>
-					
+						</ProtectedRoute>
 					),
 				},
 				{ path: 'login', element: <SignIn /> },
@@ -61,9 +54,9 @@ function App() {
 
 	return (
 		<CustomContextProvider>
-		<ItemContextProvider>
-		<RouterProvider router={router} />
-		</ItemContextProvider>
+			<ItemContextProvider>
+				<RouterProvider router={router} />
+			</ItemContextProvider>
 		</CustomContextProvider>
 	);
 }

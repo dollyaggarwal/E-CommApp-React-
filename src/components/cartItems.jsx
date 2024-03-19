@@ -27,7 +27,7 @@ function CartItems() {
 				<div className='container mx-auto px-4'>
 					<h1 className='text-3xl font-semibold mb-4'>Shopping Cart</h1>
 					<div className='flex flex-col md:flex-row gap-6'>
-						<div className='md:w-3/4'>
+						<div className={`${cart.length === 0 ? "md:w-full": "md:w-3/4"}`}>
 							{cart.length > 0 ? (
 								<div className='bg-white rounded-lg shadow-md p-6 mb-4'>
 									<table className='w-full '>
