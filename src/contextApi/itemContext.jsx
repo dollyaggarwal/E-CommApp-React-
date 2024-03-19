@@ -21,7 +21,6 @@ const itemContext = createContext();
 
 function ItemContextProvider({ children }) {
 	const { isLoggedIn } = useValue();
-	const [total, setTotal] = useState(0);
 	const [cart, setCart] = useState([]);
 	const [orders, setOrders] = useState([]);
 	const [searchProducts, setSearchProducts] = useState(Items);
