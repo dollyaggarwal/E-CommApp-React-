@@ -5,7 +5,7 @@ import {
 	signOut,
 } from 'firebase/auth';
 import { createContext, useContext, useEffect, useState } from 'react';
-import { auth, db } from '../firebase/firebaseConfig';
+import { auth } from '../firebase/firebaseConfig';
 import toast from 'react-hot-toast';
 
 const userContext = createContext();

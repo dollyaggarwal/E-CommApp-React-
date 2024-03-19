@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-	RouterProvider,
-	BrowserRouter,
-	Outlet,
-	Route,
-	createBrowserRouter,
-} from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar';
 import Banner from './components/Banner';
@@ -17,7 +11,8 @@ import CustomContextProvider from './contextApi/context';
 import RouteErrorPage from './errorHandles/RouteErrorPage';
 import ProtectedRoute from './components/ProtectedRoutes';
 import ItemContextProvider from './contextApi/itemContext';
-import ItemsContainer from './components/itemsCard';
+import { Helmet } from 'react-helmet';
+import logo from './assets/img/logo.png';
 
 function App() {
 	const router = createBrowserRouter([
@@ -53,11 +48,18 @@ function App() {
 	]);
 
 	return (
-		<CustomContextProvider>
-			<ItemContextProvider>
-				<RouterProvider router={router} />
-			</ItemContextProvider>
-		</CustomContextProvider>
+		<>
+			<Helmet>
+				<meta charSet='utf-8' />
+				<title>Buy Busy</title>
+				<link rel='icon' type='image/svg+xml' href={logo} />
+			</Helmet>
+			<CustomContextProvider>
+				<ItemContextProvider>
+					<RouterProvider router={router} />
+				</ItemContextProvider>
+			</CustomContextProvider>
+		</>
 	);
 }
 

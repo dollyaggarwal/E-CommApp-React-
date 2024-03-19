@@ -1,6 +1,5 @@
 import React from 'react';
 import banner from '../assets/img/b1.jpg';
-import { Outlet } from 'react-router-dom';
 import ItemsContainer from './itemsCard';
 function Banner() {
 	return (

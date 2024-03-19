@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
-import logo from '../assets/img/logo1.png';
+import { Link, Outlet } from 'react-router-dom';
+import logo from '../assets/img/logo.png';
 import { FaHome } from 'react-icons/fa';
 import { FaShoppingBag } from 'react-icons/fa';
 import { FaShoppingCart } from 'react-icons/fa';

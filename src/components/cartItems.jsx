@@ -1,5 +1,4 @@
 import React from 'react';
-import { useValue } from '../contextApi/context';
 import { MdDelete } from 'react-icons/md';
 import { itemValue } from '../contextApi/itemContext';
 import { Button } from '@material-tailwind/react';
@@ -7,7 +6,6 @@ import { Link } from 'react-router-dom';
 
 function CartItems() {
 	const {
-		total,
 		cart,
 		removeFromCart,
 		increaseQuantity,

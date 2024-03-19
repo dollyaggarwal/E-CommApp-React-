@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { itemValue } from '../contextApi/itemContext';
 import { FcCancel } from 'react-icons/fc';
 

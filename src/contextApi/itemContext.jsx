@@ -2,17 +2,11 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { auth, db } from '../firebase/firebaseConfig';
 import { Items } from '../data/itemsData';
 import {
-	addDoc,
-	collection,
-	deleteDoc,
 	doc,
 	getDoc,
-	getDocs,
-	query,
 	setDoc,
 	updateDoc,
-	where,
-} from 'firebase/firestore';
+	} from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useValue } from './context';
 import toast from 'react-hot-toast';
@@ -21,7 +15,7 @@ const itemContext = createContext();
 
 function ItemContextProvider({ children }) {
 	const { isLoggedIn } = useValue();
-	const [total, setTotal] = useState(0);
+	
 	const [cart, setCart] = useState([]);
 	const [orders, setOrders] = useState([]);
 	const [searchProducts, setSearchProducts] = useState(Items);
@@ -233,7 +227,6 @@ function ItemContextProvider({ children }) {
 	return (
 		<itemContext.Provider
 			value={{
-				total,
 				cart,
 				orders,
 				searchProducts,
