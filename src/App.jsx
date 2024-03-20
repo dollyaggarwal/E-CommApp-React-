@@ -51,7 +51,7 @@ function App() {
 		<>
 			<Helmet>
 				<meta charSet='utf-8' />
-				<title>Buy Busy</title>
+				<title>Bucket Store</title>
 				<link rel='icon' type='image/svg+xml' href={logo} />
 			</Helmet>
 			<CustomContextProvider>

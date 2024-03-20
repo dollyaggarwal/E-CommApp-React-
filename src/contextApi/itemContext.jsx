@@ -170,7 +170,7 @@ function ItemContextProvider({ children }) {
 				products: updatedCart,
 			});
 			fetchCartItems(userId);
-			toast.success('1X item quantity decreases');
+			toast.error('1X item quantity decreases');
 		} catch (error) {
 			console.error(error.message);
 		}

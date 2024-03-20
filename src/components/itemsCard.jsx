@@ -4,14 +4,6 @@ import { FcCancel } from 'react-icons/fc';
 function ItemsContainer() {
 	const { handleAdd, searchProducts } = itemValue();
 
-	const truncateDescription = (description) => {
-		const words = description.split(' ');
-		if (words.length > 10) {
-			return words.slice(0, 8).join(' ') + '...';
-		}
-		return description;
-	};
-
 	return (
 		<>
 			<div className='flex flex-row flex-wrap items-center justify-between space-x-6 space-y-6 mb-14'>
@@ -27,7 +19,7 @@ function ItemsContainer() {
 						<div
 							key={item.id}
 							className='relative flex flex-col justify-start text-gray-700 bg-white shadow-md bg-clip-border rounded-xl  h-96 w-72'>
-							<div className='relative w-[130px] h-[200px] md:w-[230px] md:h-[180px] mx-4 flex justify-center items-center overflow-hidden text-gray-70 bg-clip-border rounded-xl '>
+							<div className='relative w-[140px] h-[200px] md:w-[230px] md:h-[180px] mx-4 flex justify-center items-center overflow-hidden text-gray-70 bg-clip-border rounded-xl '>
 								<img
 									src={item.img}
 									alt='card-image'
@@ -40,7 +32,7 @@ function ItemsContainer() {
 										{item.title}
 									</p>
 									<p className='block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900'>
-										&#8377;{item.price}
+										&#8377;{item.price.toLocaleString('en-IN')}
 									</p>
 								</div>
 								<div className='flex items-center justify-between mb-2'>

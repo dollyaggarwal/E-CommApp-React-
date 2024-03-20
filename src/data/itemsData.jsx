@@ -1,9 +1,9 @@
 export const Items = [
 	{
 		id: 'item-1',
-		title: 'Lymio Casual Shirt for Men',
+		title: 'Lymio casual shirt',
 		description:
-			'Lymio Casual Shirt for Men|| Shirt for Men|| Men Stylish Shirt (S-Kent)',
+			'Lymio Casual Shirt fro Men|| Shirt for Men|| Men Stylish Shirt (S-Kent)',
 		img: 'https://m.media-amazon.com/images/I/61w5PO2JqxL._SY879_.jpg',
 		price: 1590,
 		discount:5,
@@ -11,7 +11,7 @@ export const Items = [
 	},
 	{
 		id: 'item-2',
-		title: 'Casual Shirt',
+		title: 'Casual shirt',
 		description: 'GRECIILOOKS Men Regular Fit Casual Shirt',
 		img: 'https://m.media-amazon.com/images/I/41QKjOKDFcL.jpg',
 		price: 1099,
@@ -30,7 +30,7 @@ export const Items = [
 	},
 	{
 		id: 'item-4',
-		title: 'Couple Rings',
+		title: 'Couple rings',
 		description:
 			'Adjustable Couple Rings for lovers valentine gift Stainless Steel Ring Set',
 		img: 'https://rukminim2.flixcart.com/image/832/832/kzx1a4w0/ring/a/k/r/adjustable-2-dr-048-ring-set-devora-original-imagbtmmu6y2hhdt.jpeg?q=70&crop=true',
@@ -40,7 +40,7 @@ export const Items = [
 	},
 	{
 		id: 'item-5',
-		title: 'Leather HandBag',
+		title: 'Leather handbag',
 		description: 'Keywest Womens Vegan Leather Penguin Handbag (Large)',
 		img: 'https://m.media-amazon.com/images/I/71-OIJNcNkL._SY695_.jpg',
 		price: 695,
@@ -69,7 +69,7 @@ export const Items = [
 	},
 	{
 		id: 'item-8',
-		title: 'Srimad Bhagavad Gita',
+		title: 'Bhagavad Gita',
 		description:
 			'Srimad Bhagavad Gita  (yes, Hindi, A C Bhaktivedanta Swami Prabhupada)| ALGAE ENTERPRISES.',
 		img: 'https://rukminim2.flixcart.com/image/832/832/jraycnk0/regionalbooks/j/q/p/shreemad-bhagwat-geeta-original-imafc9gfepuryhsq.jpeg?q=70&crop=false',
@@ -79,7 +79,7 @@ export const Items = [
 	},
 	{
 		id: 'item-9',
-		title: 'The Monk Who Sold His Ferrari',
+		title: 'The monk who sold his ferrari',
 		description: 'The Monk Who Sold His Ferrari Paperback – 25 September 2003',
 		img: 'https://m.media-amazon.com/images/I/411uFSVr9ZL._SY445_SX342_.jpg',
 		price: 199,
@@ -88,7 +88,7 @@ export const Items = [
 	},
 	{
 		id: 'item-10',
-		title: 'Power of Your Subconscious Mind ',
+		title: 'Power of your subconscious mind ',
 		description:
 			'Power of Your Subconscious Mind - The Subconscious Code : Cracking the Secrets Within  (English, Paperback, Murphy Joseph)',
 		img: 'https://rukminim2.flixcart.com/image/832/832/ki214sw0-0/book/n/w/g/the-power-of-your-subconscious-mind-original-imafxxvxsgzgd7gq.jpeg?q=70&crop=false',

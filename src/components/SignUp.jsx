@@ -21,18 +21,18 @@ function SignUp() {
 	return (
 		<>
 			<section>
-				<div className='flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
+				<div className='flex flex-col items-center justify-center px-4 my-8 mx-auto md:h-screen lg:py-0'>
 					<span className='flex items-center mb-6 text-3xl font-semibold'>
-						BuyBusy
+						Bucket Store
 					</span>
 					<div className='w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-900 dark:border-gray-800'>
-						<div className='p-6 space-y-4 md:space-y-6 sm:p-8'>
+						<div className='p-6 space-y-2 md:space-y-4 sm:p-6'>
 							<h1 className='text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white'>
 								Create an account
 							</h1>
 							<form
 								onSubmit={handleSubmitForRegister}
-								className='space-y-4 md:space-y-6'
+								className='space-y-2 md:space-y-4'
 								action='#'>
 								<div>
 									<label
@@ -95,7 +95,7 @@ function SignUp() {
 											required
 										/>
 									</div>
-									<div className='ml-3 text-md'>
+									<div className='ml-3 text-sm'>
 										<label
 											htmlFor='terms'
 											className='font-light text-gray-500 dark:text-gray-300 '>
@@ -113,9 +113,9 @@ function SignUp() {
 									className='w-full text-white bg-blue-600 hover:bg-blue-800 focus:ring-5 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-md px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-800 dark:focus:ring-primary-800'>
 									Sign Up
 								</button>
-								<p className='text-md font-light text-gray-200 dark:text-gray-200'>
+								<p className='text-sm font-light text-gray-200 dark:text-gray-200'>
 									Already have an account ?{' '}
-									<span className='text-lg font-medium text-blue-600 hover:underline dark:text-blue-500'>
+									<span className='text-md font-medium text-blue-600 hover:underline dark:text-blue-500'>
 										<Link to='/login'>Login Here </Link>
 									</span>
 								</p>

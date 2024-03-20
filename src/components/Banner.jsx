@@ -11,15 +11,15 @@ function Banner() {
                     alt='Banner Image'
                     className='absolute inset-0 w-full h-full object-cover'
                 />
-                <div className='min-h-[450px] relative z-50 h-full max-w-5xl mx-auto sm:mx-24 flex flex-col justify-center items-center text-center text-white p-6'>
-                    <h4 className='sm:text-3xl text-2xl font-semibold mb-6'>
+                <div className='min-h-[430px] relative z-50 h-full max-w-2xl mx-auto sm:mx-16 flex flex-col justify-center items-center text-center text-white p-2'>
+                    <h4 className='sm:text-2xl text-2xl font-semibold mb-6'>
                         {' '}
                         Hurry up!!!
                     </h4>
-                    <h2 className='sm:text-4xl text-3xl font-bold mb-6'>
+                    <h2 className='sm:text-3xl text-2xl font-semibold mb-6'>
                         Discover Our Brand New Collection
                     </h2>
-                    <p className='text-lg sm:text-2xl text-center text-gray-200'>
+                    <p className='text-lg sm:text-lg text-center text-gray-200'>
                         Elevate your style with our latest arrivals.
                         <br />
                         Shop now and enjoy exclusive discounts!!
