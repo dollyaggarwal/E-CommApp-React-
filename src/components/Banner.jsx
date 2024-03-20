@@ -5,7 +5,6 @@ import ItemsContainer from './itemsCard';
 function Banner() {
     return (
         <>
-         
             <div className='relative top-1 font-[sans-serif] before:absolute before:w-full before:h-full before:inset-0 before:bg-black before:opacity-50 before:z-10'>
                 <img
                     src={banner}
@@ -17,10 +16,10 @@ function Banner() {
                         {' '}
                         Hurry up!!!
                     </h4>
-                    <h2 className='md:text-4xl text-lg text-nowrap font-semibold mb-6'>
+                    <h2 className='md:text-3xl text-lg text-nowrap font-semibold mb-6'>
                         Discover Our Brand New Collection
                     </h2>
-                    <p className='text-sm md:text-2xl text-center text-gray-200'>
+                    <p className='text-sm md:text-xl text-center text-gray-200'>
                         Elevate your style with our latest arrivals.
                         <br />
                         Shop now and enjoy exclusive discounts!!
