@@ -14,12 +14,14 @@ function Navbar() {
 	return (
 		<>
 			<nav>
-				<div className='w-full h-16 border border-b-1 shadow-md flex items-center justify-between z-1 relative'>
+				<div className='w-full h-fit border border-b-1 shadow-md flex flex-col md:flex-row items-center md:justify-between z-1 relative'>
+					<div className='flex md:max-w-[50%] md:min-w-[40%] w-full items-center md:py-0 py-4'>
+
 					<div className='w-20 h-full mx-6'>
 						<img src={logo} alt='logo' />
 					</div>
 
-					<div className='relative w-1/4 mx-auto text-gray-900 font-semibold lg:block hidden'>
+					<div className='relative md:max-w-[80%] md:min-w-[60%] md:w-[70%] text-gray-900 font-semibold lg:block mr-4 w-full'>
 						<input
 							onChange={(e) => searchItems(e.target.value)}
 							className='border-2 border-gray-400 bg-white w-full h-11 pl-3 rounded-lg text-sm focus:outline-none'
@@ -28,9 +30,10 @@ function Navbar() {
 							placeholder='Search for Brands,Products and more...'
 						/>
 					</div>
+					</div>
 
-					<div className='flex justify-end space-x-14 items-center py-5 px-14 mx-12 '>
-						<div className='flex justify-between gap-2 items-center cursor-pointer hover:text-blue-800 font-semibold text-2xl'>
+					<div className='flex justify-between gap-2 md:min-w-[35rem] md:max-w-[50rem] items-center py-5 w-full px-8 sm:mr-5'>
+						<div className='flex justify-between gap-1 items-center cursor-pointer hover:text-orange-400 font-semibold md:text-2xl text-xl'>
 							<span>
 								<FaHome />
 							</span>
@@ -38,7 +41,7 @@ function Navbar() {
 								<span>Home</span>
 							</Link>
 						</div>
-						<div className='flex justify-between gap-2 items-center cursor-pointer hover:text-blue-800 font-semibold text-2xl'>
+						<div className='flex  justify-between gap-2 items-center cursor-pointer hover:text-orange-400 font-semibold md:text-2xl text-xl'>
 							<span>
 								<FaShoppingBag />
 							</span>
@@ -46,7 +49,7 @@ function Navbar() {
 								<span>Orders</span>
 							</Link>
 						</div>
-						<div className='flex justify-between gap-2 items-center cursor-pointer hover:text-blue-800 font-semibold text-2xl'>
+						<div className='flex justify-between gap-2 items-center cursor-pointer hover:text-orange-400  font-semibold md:text-2xl text-xl'>
 							<span>
 								{' '}
 								<FaShoppingCart />
@@ -56,7 +59,7 @@ function Navbar() {
 								<span>Cart</span>
 							</Link>
 						</div>
-						<div className='flex justify-between gap-2 items-center cursor-pointer hover:text-blue-800 font-semibold text-2xl'>
+						<div className='flex  justify-between gap-2 items-center cursor-pointer hover:text-orange-400  font-semibold md:text-2xl text-xl'>
 							{isLoggedIn ? (
 								<>
 									<span>

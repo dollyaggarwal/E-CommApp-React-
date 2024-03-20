@@ -19,7 +19,7 @@ function SignIn() {
 	return (
 		<>
 			<section>
-				<div className='flex flex-col items-center justify-center px-4 py-8 mx-auto md:h-screen lg:py-0'>
+				<div className='scale-up-center flex flex-col md:w-full w-screen items-center justify-center px-4 py-8 mx-auto md:h-screen lg:py-0'>
 					<a href='#' className='flex items-center mb-6 text-3xl font-semibold'>
 						Bucket Store
 					</a>

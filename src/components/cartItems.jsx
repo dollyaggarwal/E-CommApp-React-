@@ -21,13 +21,13 @@ function CartItems() {
 
 	return (
 		<>
-			<div className='bg-gray-100 h-full py-8'>
+			<div className='p-5'>
 				<div className='container mx-auto px-4'>
 					<h1 className='text-2xl font-semibold mb-4'>Shopping Cart</h1>
 					<div className='flex flex-col md:flex-row gap-8'>
-						<div className={`${cart.length === 0 ? "md:w-full h-screen": "md:w-3/4 h-full"}`}>
+						<div className={`${cart.length === 0 ? "md:w-full": "md:w-3/4"}`}>
 							{cart.length > 0 ? (
-								<div className='bg-white rounded-lg shadow-md pl-1 py-6 mb-4'>
+								<div className='bg-white rounded-lg shadow-lg pl-1 py-6 mb-4'>
 									<table className='w-full h-full '>
 										<thead>
 											<tr>
@@ -114,7 +114,7 @@ function CartItems() {
 
 						{cart.length > 0 && (
 							<div className='md:w-1/4'>
-								<div className='bg-white rounded-lg shadow-md p-6'>
+								<div className='bg-white rounded-lg shadow-lg p-6'>
 									<h2 className='text-md font-bold mb-4'>Summary</h2>
 									<div className='flex justify-between mb-2 text-md'>
 										<span>Subtotal</span>
@@ -136,7 +136,7 @@ function CartItems() {
 									</div>
 									<Link to='/orders'>
 										<button
-											className='bg-blue-500 text-white font-bold text-md py-2 px-2 rounded-lg mt-4 w-full'
+											className='bg-black text-white font-bold text-md py-2 px-2 rounded-md hover:bg-orange-400 hover:text-black mt-4 w-full'
 											onClick={checkoutToOrders}>
 											Checkout
 										</button>

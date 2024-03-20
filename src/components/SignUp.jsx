@@ -21,11 +21,11 @@ function SignUp() {
 	return (
 		<>
 			<section>
-				<div className='flex flex-col items-center justify-center px-4 my-8 mx-auto md:h-screen lg:py-0'>
+				<div className='scale-up-center flex flex-col items-center justify-center px-4 my-8 w-full mx-auto md:h-screen lg:py-0'>
 					<span className='flex items-center mb-6 text-3xl font-semibold'>
 						Bucket Store
 					</span>
-					<div className='w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-900 dark:border-gray-800'>
+					<div className='w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-sm xl:p-2 dark:bg-gray-900 dark:border-gray-800'>
 						<div className='p-6 space-y-2 md:space-y-4 sm:p-6'>
 							<h1 className='text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white'>
 								Create an account
